@@ -1,0 +1,2 @@
+// shared post types
+export {};
