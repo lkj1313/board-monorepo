@@ -1,43 +1,43 @@
-﻿## What
+﻿## 무엇을 했나요
 
 -
 
-## Why
+## 왜 했나요
 
 -
 
-## Scope
+## 작업 범위
 
 - [ ] BE
 - [ ] FE
 - [ ] INFRA
 - [ ] DOCS
 
-## Changes
+## 주요 변경사항
 
 -
 -
 
-## Impact
+## 영향도
 
 - API:
 - DB:
-- Breaking change: [ ] Yes [ ] No
+- 브레이킹 체인지: [ ] Yes [ ] No
 
-## Test
+## 테스트
 
-- Commands:
+- 실행 명령:
   -
-- Result:
+- 결과:
   -
 
-## Review Points
+## 리뷰 포인트
 
 -
 -
 
-## Checklist
+## 체크리스트
 
-- [ ] Local run OK
-- [ ] Tests pass
-- [ ] No secrets included
+- [ ] 로컬 실행 확인
+- [ ] 테스트 통과
+- [ ] 민감정보 포함 없음
