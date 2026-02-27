@@ -1,0 +1,13 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: board-db
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: board
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
