@@ -4,11 +4,16 @@
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { AuthResponse } from '@board/shared-types';
+import { AuthResponse } from '@reservation/shared-types';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
 import { LoginDto } from './dto/login.dto';
 import { SignupDto } from './dto/signup.dto';
+
+type AuthWithRefreshToken = {
+  authResponse: AuthResponse;
+  refreshToken: string;
+};
 
 @Injectable()
 export class AuthService {
@@ -17,7 +22,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async signup(dto: SignupDto): Promise<AuthResponse> {
+  async signup(dto: SignupDto): Promise<AuthWithRefreshToken> {
     const existingUser = await this.prisma.user.findUnique({
       where: { email: dto.email },
     });
@@ -40,17 +45,19 @@ export class AuthService {
     await this.updateRefreshTokenHash(user.id, tokens.refreshToken);
 
     return {
-      user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
+      authResponse: {
+        user: {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+        },
+        accessToken: tokens.accessToken,
       },
-      accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
     };
   }
 
-  async login(dto: LoginDto): Promise<AuthResponse> {
+  async login(dto: LoginDto): Promise<AuthWithRefreshToken> {
     const user = await this.prisma.user.findUnique({
       where: { email: dto.email },
     });
@@ -69,17 +76,19 @@ export class AuthService {
     await this.updateRefreshTokenHash(user.id, tokens.refreshToken);
 
     return {
-      user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
+      authResponse: {
+        user: {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+        },
+        accessToken: tokens.accessToken,
       },
-      accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
     };
   }
 
-  async refresh(refreshToken: string): Promise<AuthResponse> {
+  async refresh(refreshToken: string): Promise<AuthWithRefreshToken> {
     const payload = await this.verifyRefreshToken(refreshToken);
 
     const user = await this.prisma.user.findUnique({
@@ -103,12 +112,14 @@ export class AuthService {
     await this.updateRefreshTokenHash(user.id, tokens.refreshToken);
 
     return {
-      user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
+      authResponse: {
+        user: {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+        },
+        accessToken: tokens.accessToken,
       },
-      accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
     };
   }

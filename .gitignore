@@ -19,3 +19,9 @@ data/postgres
 .vscode
 .DS_Store
 *.log
+
+*storybook.log
+storybook-static
+
+# AI Rules
+.gemini/

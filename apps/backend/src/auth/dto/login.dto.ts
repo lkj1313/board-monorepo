@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsString, MinLength } from 'class-validator';
-import { LoginRequest } from '@board/shared-types';
+import { LoginRequest } from '@reservation/shared-types';
 
 export class LoginDto implements LoginRequest {
   @ApiProperty({ example: 'test1@example.com' })

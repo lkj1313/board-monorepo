@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsString, MinLength } from 'class-validator';
-import { SignupRequest } from '@board/shared-types';
+import { SignupRequest } from '@reservation/shared-types';
 
 export class SignupDto implements SignupRequest {
   @ApiProperty({ example: 'test1@example.com' })

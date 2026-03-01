@@ -85,8 +85,10 @@ describe('AuthService', () => {
       data: { refreshTokenHash: 'hashed-refresh-token' },
     });
     expect(result).toEqual({
-      user: { id: 1, email: 'test@example.com', name: 'tester' },
-      accessToken: 'access-token',
+      authResponse: {
+        user: { id: 1, email: 'test@example.com', name: 'tester' },
+        accessToken: 'access-token',
+      },
       refreshToken: 'refresh-token',
     });
   });
@@ -136,8 +138,10 @@ describe('AuthService', () => {
       data: { refreshTokenHash: 'hashed-refresh-token' },
     });
     expect(result).toEqual({
-      user: { id: 1, email: 'test@example.com', name: 'tester' },
-      accessToken: 'access-token',
+      authResponse: {
+        user: { id: 1, email: 'test@example.com', name: 'tester' },
+        accessToken: 'access-token',
+      },
       refreshToken: 'refresh-token',
     });
   });
@@ -161,7 +165,7 @@ describe('AuthService', () => {
 
     const result = await service.refresh('old-refresh-token');
 
-    expect(result.accessToken).toBe('new-access-token');
+    expect(result.authResponse.accessToken).toBe('new-access-token');
     expect(result.refreshToken).toBe('new-refresh-token');
     expect(prismaMock.user.update).toHaveBeenCalledWith({
       where: { id: 1 },
